@@ -90,8 +90,8 @@ def delete_empty_dir(dir):
     """ 如果程序半路中断的话，可能存在已经新建好文件夹但是仍没有下载的图片的情况
     但此时文件夹已经存在所以会忽略该套图的下载，此时要删除空文件夹 """
     if os.path.exists(dir):
-        if os.path.isdir(dir):
-            for d in os.listdir(dir):
+        if os.path.isdir(dir):#判断文件夹存在
+            for d in os.listdir(dir):#返回目录下所有文件和目录名
                 path = os.path.join(dir, d)     # 组装下一级地址
                 if os.path.isdir(path):
                     delete_empty_dir(path)      # 递归删除空文件夹
@@ -103,7 +103,7 @@ def delete_empty_dir(dir):
 
 if __name__ == "__main__":
     urls = get_urls()
-    pool = Pool(processes=cpu_count())
+    pool = Pool(1)#pool=Pool(processes=cpu_count())
     try:
         delete_empty_dir(dir_path)
         pool.map(urls_crawler, urls)

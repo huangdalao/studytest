@@ -24,7 +24,7 @@ def get_parser():
     parser.add_argument('-k', '--keyword', type=str,
                         help='magnet keyword.')
     parser.add_argument('-n', '--num', type=int, default=40,
-                        help='magnet number.(default 20)')
+                        help='magnet number.(default 40)')
     parser.add_argument('-s', '--sort-by', type=int, default=0,
                         help='0: Sort by date，1: Sort by size.(default 0)')
     parser.add_argument('-o', '--output', type=str,
@@ -74,8 +74,7 @@ def run(kw, num, sort_by):
 
     urls = []
     for p in range(1, page + 1):
-        url = domain + "/index.php?r=files%2Findex&kw={kw}&page={p}".\
-            format(kw=kw, p=p)
+        url = domain + "/index.php?r=files%2Findex&kw={kw}&page={p}".format(kw=kw, p=p)
         try:
             resp = requests.get(url, headers=HEADERS).text
             try:
